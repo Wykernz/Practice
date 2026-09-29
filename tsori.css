@@ -1,0 +1,532 @@
+/* style.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at 30% 10%, #1a0b1f 0%, #0b0a14 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ====== Background glow ====== */
+.glow {
+  position: absolute;
+  width: 70vmax;
+  height: 70vmax;
+  background: radial-gradient(circle, rgba(230, 120, 180, 0.15) 0%, rgba(230, 120, 180, 0) 70%);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: breathe 8s ease-in-out infinite;
+  pointer-events: none;
+  transition: background 1.5s ease;
+}
+
+body.revealed .glow {
+  background: radial-gradient(circle, rgba(255, 200, 80, 0.18) 0%, rgba(255, 180, 60, 0) 70%);
+}
+
+@keyframes breathe {
+  0% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+  100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ====== Floating hearts ====== */
+.heart-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.8s ease;
+}
+
+body.revealed .heart-layer {
+  opacity: 0.5;
+}
+
+.heart {
+  position: absolute;
+  user-select: none;
+  animation: floatUp 8s infinite linear;
+  filter: drop-shadow(0 0 6px rgba(255, 80, 150, 0.6));
+  will-change: transform, opacity;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-30vh) scale(1.1) rotate(360deg); opacity: 0; }
+}
+
+/* ====== Love Card ====== */
+.love-card {
+  position: relative;
+  z-index: 10;
+  background: rgba(20, 10, 25, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 160, 210, 0.3);
+  border-radius: 42px;
+  padding: 2.8rem 3.5rem;
+  box-shadow: 0 30px 50px -15px rgba(0, 0, 0, 0.7),
+              0 0 0 1px rgba(255, 140, 200, 0.15) inset,
+              0 0 30px rgba(230, 100, 170, 0.3);
+  text-align: center;
+  max-width: 800px;
+  width: 90%;
+  animation: cardAppear 1.6s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+  transform-origin: center;
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.5, 0, 0.5, 1);
+}
+
+body.revealed .love-card {
+  opacity: 0;
+  transform: scale(0.85) translateY(-20px);
+  pointer-events: none;
+  position: absolute;
+}
+
+@keyframes cardAppear {
+  0% { opacity: 0; transform: scale(0.85) translateY(30px); filter: blur(6px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+}
+
+.main-message {
+  font-size: clamp(2.4rem, 12vw, 5.8rem);
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  color: #fff4f9;
+  text-shadow: 0 0 15px #ffb3d9, 0 0 40px #ff4d94, 0 0 80px #b3005c;
+  animation: glowPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  0% { text-shadow: 0 0 10px #ffb3d9, 0 0 30px #ff4d94, 0 0 60px #b3005c; }
+  100% { text-shadow: 0 0 20px #ffcce6, 0 0 60px #ff1a75, 0 0 100px #ff0066; }
+}
+
+.sub-message {
+  font-size: clamp(1.4rem, 5vw, 2.4rem);
+  font-weight: 300;
+  letter-spacing: 3px;
+  color: #ffe0f0;
+  margin-bottom: 1.8rem;
+  text-transform: uppercase;
+  opacity: 0.95;
+  text-shadow: 0 0 12px rgba(255, 120, 180, 0.7);
+  animation: fadeSlide 1.8s 0.3s both;
+}
+
+.babi-zoi {
+  font-size: clamp(2.6rem, 9vw, 4.8rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffb6e6, #ff6bb5, #ffb6e6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 0.6rem 0 0.8rem;
+  letter-spacing: 4px;
+  text-shadow: 0 0 20px rgba(255, 120, 200, 0.8);
+  animation: shine 2.5s infinite alternate, pop 2s 0.6s both;
+  position: relative;
+  display: inline-block;
+}
+
+.babi-zoi::after {
+  content: "❤️";
+  position: absolute;
+  font-size: 1.8rem;
+  top: -20px;
+  right: -30px;
+  filter: drop-shadow(0 0 10px #ff4d94);
+  animation: heartBeat 1.2s infinite;
+}
+
+@keyframes shine {
+  0% { filter: drop-shadow(0 0 8px #ff80bf); }
+  100% { filter: drop-shadow(0 0 25px #ff1a75); }
+}
+
+@keyframes pop {
+  0% { opacity: 0; transform: scale(0.7); }
+  80% { transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeSlide {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.babi-zoi-sub {
+  font-size: clamp(1rem, 3.2vw, 1.5rem);
+  color: #f7c8e0;
+  letter-spacing: 4px;
+  font-weight: 200;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+  opacity: 0.9;
+  animation: fadeSlide 2s 0.9s both;
+}
+
+.divider {
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff8ac4, #ff4d94, #ff8ac4, transparent);
+  margin: 1.5rem auto 1.8rem;
+  border-radius: 2px;
+  animation: widthGrow 1.6s 0.8s both;
+}
+
+@keyframes widthGrow {
+  0% { width: 0; opacity: 0; }
+  100% { width: 100px; opacity: 1; }
+}
+
+/* ====== Gift Button ====== */
+.gift-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1rem 2.2rem;
+  font-family: inherit;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, #ff8ac4, #ff4d94);
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px -5px rgba(255, 77, 148, 0.5),
+              0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: pulseBtn 2.2s ease-in-out infinite;
+}
+
+.gift-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 15px 35px -5px rgba(255, 77, 148, 0.7),
+              0 0 0 1px rgba(255, 255, 255, 0.25) inset;
+}
+
+.gift-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-icon {
+  font-size: 1.3rem;
+  animation: spinSlow 6s linear infinite;
+}
+
+@keyframes spinSlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulseBtn {
+  0%, 100% { box-shadow: 0 10px 25px -5px rgba(255, 77, 148, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.15) inset; }
+  50% { box-shadow: 0 10px 35px -3px rgba(255, 77, 148, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.3) inset; }
+}
+
+/* ====== Bouquet Card (Revealed) ====== */
+.bouquet-card {
+  position: absolute;
+  z-index: 20;
+  background: rgba(20, 12, 5, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 200, 90, 0.35);
+  border-radius: 42px;
+  padding: 2.5rem 2.8rem;
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8),
+              0 0 0 1px rgba(255, 200, 90, 0.15) inset,
+              0 0 50px rgba(255, 180, 60, 0.25);
+  text-align: center;
+  max-width: 780px;
+  width: 90%;
+  opacity: 0;
+  transform: scale(0.85) translateY(30px);
+  pointer-events: none;
+  transition: opacity 0.9s ease 0.2s, transform 0.9s cubic-bezier(0.2, 0.9, 0.3, 1) 0.2s;
+}
+
+body.revealed .bouquet-card {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: all;
+}
+
+/* ====== Sunflower Bouquet ====== */
+.bouquet-container {
+  position: relative;
+  height: 220px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.sunflowers {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.sunflower {
+  position: absolute;
+  bottom: 30px;
+  transform-origin: bottom center;
+  animation: growFlower 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+}
+
+@keyframes growFlower {
+  0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* Each sunflower is built with divs */
+.flower-head {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  background: radial-gradient(circle at 50% 50%, #4a2e0e 0%, #2d1a06 60%, #1a0f03 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px #5c3a15 inset, 0 0 12px rgba(0,0,0,0.5);
+}
+
+.flower-head::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  background: radial-gradient(circle at 40% 40%, #3a2208, #1a0f03);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 6px rgba(0,0,0,0.8) inset;
+}
+
+/* Petals arranged around head */
+.petal {
+  position: absolute;
+  width: 18px;
+  height: 32px;
+  background: linear-gradient(180deg, #ffe066 0%, #ffcc00 50%, #e6a800 100%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  top: 50%;
+  left: 50%;
+  transform-origin: 50% 0%;
+  box-shadow: 0 0 6px rgba(255, 200, 0, 0.4);
+}
+
+.flower-stem {
+  width: 6px;
+  height: 80px;
+  background: linear-gradient(90deg, #3a6b1f, #5c9e33, #3a6b1f);
+  margin: -4px auto 0;
+  border-radius: 3px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.3);
+}
+
+.leaf {
+  position: absolute;
+  width: 28px;
+  height: 14px;
+  background: linear-gradient(135deg, #4a8c2a, #6bbf3d);
+  border-radius: 0 100% 0 100%;
+  bottom: 20px;
+}
+.leaf.left {
+  left: -24px;
+  transform: rotate(-25deg);
+}
+.leaf.right {
+  right: -24px;
+  transform: rotate(25deg) scaleX(-1);
+}
+
+/* Wrapping paper / base */
+.bouquet-base {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 50px;
+  background: linear-gradient(180deg, #fff5e6 0%, #f7e0b5 40%, #e6c78a 100%);
+  border-radius: 0 0 60px 60px / 0 0 30px 30px;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.2), 0 6px 12px rgba(0,0,0,0.3);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+  z-index: 5;
+}
+
+.bouquet-base::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 20px;
+  background: linear-gradient(180deg, #fff5e6, #f7e0b5);
+  border-radius: 50%;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.15);
+}
+
+/* ====== Bouquet Message ====== */
+.message-title {
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #ffd966, #ffb300, #ffd966);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 25px rgba(255, 200, 0, 0.6);
+  margin-bottom: 1rem;
+  animation: fadeSlide 0.9s 0.6s both;
+}
+
+.message-text {
+  font-size: clamp(1rem, 2.8vw, 1.3rem);
+  line-height: 1.8;
+  color: #fff4e0;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.8rem;
+  text-shadow: 0 0 10px rgba(255, 200, 100, 0.3);
+  animation: fadeSlide 0.9s 0.9s both;
+}
+
+.message-text .highlight {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 1.15em;
+  font-weight: 600;
+  color: #ffd966;
+  text-shadow: 0 0 15px rgba(255, 200, 0, 0.7);
+  animation: glowPulseGold 2s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulseGold {
+  0% { text-shadow: 0 0 10px #ffd966, 0 0 20px #ffb300; }
+  100% { text-shadow: 0 0 20px #ffe680, 0 0 40px #ffcc00; }
+}
+
+/* ====== Back Button ====== */
+.back-btn {
+  padding: 0.75rem 1.8rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #ffe0b3;
+  background: transparent;
+  border: 1px solid rgba(255, 200, 90, 0.5);
+  border-radius: 60px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: fadeSlide 0.9s 1.2s both;
+}
+
+.back-btn:hover {
+  background: rgba(255, 200, 90, 0.15);
+  border-color: rgba(255, 200, 90, 0.9);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 600px) {
+  .love-card, .bouquet-card {
+    padding: 2rem 1.5rem;
+    border-radius: 32px;
+  }
+  .babi-zoi::after {
+    font-size: 1.2rem;
+    top: -18px;
+    right: -22px;
+  }
+  .heart {
+    font-size: 1rem;
+  }
+  .bouquet-container {
+    height: 180px;
+  }
+  .flower-head {
+    width: 44px;
+    height: 44px;
+  }
+  .petal {
+    width: 14px;
+    height: 26px;
+  }
+  .flower-stem {
+    height: 60px;
+    width: 5px;
+  }
+  .bouquet-base {
+    width: 130px;
+    height: 40px;
+  }
+  .bouquet-base::before {
+    width: 110px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 380px) {
+  .love-card, .bouquet-card {
+    padding: 1.8rem 1rem;
+  }
+  .bouquet-container {
+    height: 160px;
+  }
+  .flower-head {
+    width: 38px;
+    height: 38px;
+  }
+  .petal {
+    width: 12px;
+    height: 22px;
+  }
+  .flower-stem {
+    height: 50px;
+  }
+}
+
+/* ====== Reduced motion ====== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .glow { opacity: 0.3; }
+  .sunflower { animation: none; opacity: 1; transform: scale(1); }
+}
